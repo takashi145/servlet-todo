@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +14,15 @@
 			<th>期限</th>
 			<th></th>
 		</tr>
-		<% for(int i=0; i<10; i++) { %>
+		<c:forEach var="task" items="${taskList}">
 		<tr>
-			<td>タスク<%=i %></td>
-			<td>期限</td>
+			<td><c:out value="${task.task}"/></td>
+			<td><c:out value="${task.deadline}"/></td>
 			<td>
 				<button>詳細</button>
 			</td>
 		</tr>
-		<% } %>
+		</c:forEach>
 	</table>
 </body>
 </html>
