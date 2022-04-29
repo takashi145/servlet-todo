@@ -24,7 +24,8 @@
 	</table>
 	<div>
 		<button onclick="location.href='/Todo/UpdateServlet?id=${task.id}'">編集</button>
-		<form action="#">
+		<form action="/Todo/DeleteServlet" method="post">
+			<input type="hidden" name="id" value="${task.id }">
 			<input type="submit" value="削除">
 		</form>
 	</div>

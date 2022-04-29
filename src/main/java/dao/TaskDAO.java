@@ -19,7 +19,6 @@ public class TaskDAO {
 	public List<Task> findAll() {
 		List<Task> taskList = new ArrayList<>();
 		
-		//データベース接続
 		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
 			String sql = "select * from tasks";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -108,6 +107,23 @@ public class TaskDAO {
 			return false;
 		}
 		
+		return true;
+	}
+	
+	public boolean delete(int id) {
+		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+			String sql = "delete from tasks where id=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, id);
+			
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 }
