@@ -20,7 +20,7 @@
 			<td><c:out value="${task.task}"/></td>
 			<td><c:out value="${task.deadline}"/></td>
 			<td>
-				<button>詳細</button>
+				<a href="/Todo/showServlet?id=${task.id}">詳細</a>
 			</td>
 		</tr>
 		</c:forEach>

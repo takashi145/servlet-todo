@@ -61,4 +61,29 @@ public class TaskDAO {
 		
 		return true;
 	}
+	
+	public Task findOne(int task_id) {
+		Task task = null;
+		
+		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+			String sql = "select * from tasks where id = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, task_id);
+			ResultSet rs = pStmt.executeQuery();
+			
+			if(rs.next()) {
+				int id = rs.getInt("id");
+				String task_name = rs.getString("task");
+				String explanation = rs.getString("explanation");
+				Date deadline = rs.getDate("deadline");
+				task = new Task(id, task_name, explanation, deadline);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return task;
+	}
 }
