@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<a href="/Todo/createServlet">タスク追加</a>
 	<table border="1">
 		<tr>
 			<th>タスク名</th>

@@ -9,6 +9,12 @@ public class Task {
 	private String explanation;
 	private Date deadline;
 	
+	public Task(String task, String explanation, Date deadline) {
+		this.task = task;
+		this.explanation = explanation;
+		this.deadline = deadline;
+	}
+
 	public Task(int id, String task, String explanation, Date deadline2) {
 		this.id = id;
 		this.task = task;

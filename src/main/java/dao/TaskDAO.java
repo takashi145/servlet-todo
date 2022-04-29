@@ -39,4 +39,26 @@ public class TaskDAO {
 		}
 		return taskList;
 	}
+	
+	public boolean create(Task task) {
+		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+			String sql = "insert into tasks(task, explanation, deadline) values(?, ?, ?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			pStmt.setString(1, task.getTask());
+			pStmt.setString(2, task.getExplanation());
+			java.sql.Date deadline = new java.sql.Date(task.getDeadline().getTime());
+			pStmt.setDate(3, deadline);
+			
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
 }
