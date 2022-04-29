@@ -86,4 +86,28 @@ public class TaskDAO {
 		
 		return task;
 	}
+	
+	public boolean update(Task task, int id) {
+		
+		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+			String sql = "update tasks set task=?, explanation=?, deadline=? where id=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			pStmt.setString(1, task.getTask());
+			pStmt.setString(2, task.getExplanation());
+			java.sql.Date deadline = new java.sql.Date(task.getDeadline().getTime());
+			pStmt.setDate(3, deadline);
+			pStmt.setInt(4, id);
+			
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
 }

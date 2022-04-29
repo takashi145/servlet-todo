@@ -23,7 +23,7 @@
 		</tr>
 	</table>
 	<div>
-		<button onclick="">編集</button>
+		<button onclick="location.href='/Todo/UpdateServlet?id=${task.id}'">編集</button>
 		<form action="#">
 			<input type="submit" value="削除">
 		</form>
