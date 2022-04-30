@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="/Todo/IndexShow?id=${task.id}">戻る</a>
+	<a href="/Todo/showServlet?id=${task.id}">戻る</a>
+	<ul>
+		<c:forEach var="error" items="${ errorList }">
+			<li><c:out value="${error}" /></li>
+		</c:forEach>
+	</ul>
 	<form action="/Todo/UpdateServlet" method="post">
 		<input type="hidden" name="id" value="${task.id }">
 		<div>

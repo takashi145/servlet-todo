@@ -46,7 +46,12 @@ public class TaskDAO {
 			
 			pStmt.setString(1, task.getTask());
 			pStmt.setString(2, task.getExplanation());
-			java.sql.Date deadline = new java.sql.Date(task.getDeadline().getTime());
+			java.sql.Date deadline;
+			if(task.getDeadline() == null) {
+				deadline = null;
+			}else {
+				deadline = new java.sql.Date(task.getDeadline().getTime());
+			}
 			pStmt.setDate(3, deadline);
 			
 			int result = pStmt.executeUpdate();
@@ -94,7 +99,12 @@ public class TaskDAO {
 			
 			pStmt.setString(1, task.getTask());
 			pStmt.setString(2, task.getExplanation());
-			java.sql.Date deadline = new java.sql.Date(task.getDeadline().getTime());
+			java.sql.Date deadline;
+			if(task.getDeadline() == null) {
+				deadline = null;
+			}else {
+				deadline = new java.sql.Date(task.getDeadline().getTime());
+			}
 			pStmt.setDate(3, deadline);
 			pStmt.setInt(4, id);
 			
