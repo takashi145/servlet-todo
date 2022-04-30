@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,16 @@
 		</tr>
 		<tr>
 			<th>期限</th>
-			<td>${task.deadline }</td>
+			<td>
+				<c:choose>
+					<c:when test="${task.deadline} == null">
+						無期限
+					</c:when>
+					<c:otherwise>
+						${task.deadline }
+					</c:otherwise>
+				</c:choose>
+			</td>
 		</tr>
 	</table>
 	<div>

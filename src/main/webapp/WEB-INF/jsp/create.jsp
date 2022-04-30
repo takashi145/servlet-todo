@@ -10,8 +10,8 @@
 <body>
 	<a href="/Todo/IndexServlet">戻る</a>
 	<ul>
-		<c:forEach var="error" items="${ errorList }">
-			<li><c:out value="${error}" /></li>
+		<c:forEach var="error" items="${errorList }">
+			<li>${error}</li>
 		</c:forEach>
 	</ul>
 	<form action="/Todo/createServlet" method="post">

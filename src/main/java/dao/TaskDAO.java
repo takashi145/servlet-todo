@@ -20,7 +20,38 @@ public class TaskDAO {
 		List<Task> taskList = new ArrayList<>();
 		
 		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
-			String sql = "select * from tasks";
+			String sql = "select * "
+					+ "from tasks "
+					+ "where deadline >= curdate() "
+					+ "or deadline is null "
+					+ "order by deadline";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			ResultSet rs = pStmt.executeQuery();
+			
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String task_name = rs.getString("task");
+				String explanation = rs.getString("explanation");
+				Date deadline = rs.getDate("deadline");
+				Task task = new Task(id, task_name, explanation, deadline);
+				taskList.add(task);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return taskList;
+	}
+	
+	//期限切れのタスクのリストを返す
+	public List<Task> expiredFindAll() {
+		List<Task> taskList = new ArrayList<>();
+		
+		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+			String sql = "select * "
+					+ "from tasks "
+					+ "where deadline < curdate()"
+					+ "order by deadline";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			ResultSet rs = pStmt.executeQuery();
 			
