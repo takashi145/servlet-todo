@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
-	<div class="container col-md-6 m-5">
+	<div class="container col-md-6 m-5 mx-auto">
 		<div class="mb-3">
 			<a href="/Todo/IndexServlet">戻る</a>
 		</div>
@@ -47,12 +47,16 @@
 		</div>
 		<div class="d-flex justify-content-around">
 			<button onclick="location.href='/Todo/UpdateServlet?id=${task.id}'" class="btn btn-primary">編集</button>
-			<form action="/Todo/DeleteServlet" method="post">
+			<form action="/Todo/DeleteServlet" method="post" onsubmit="return delete_confirm()">
 				<input type="hidden" name="id" value="${task.id }">
 				<button type="submit" class="btn btn-danger">削除</button>
 			</form>
 		</div>
 	</div>
-	
+	<script>
+		function delete_confirm(){
+			return confirm("本当に削除してもよろしいですか");
+		}
+	</script>
 </body>
 </html>

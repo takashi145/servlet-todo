@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container col-md-6 m-5 mx-auto">
 		<div class="m-3">
 			<a href="/Todo/IndexServlet">一覧に戻る</a>
 		</div>

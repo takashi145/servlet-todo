@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container col-md-6 m-5 mx-auto">
 		<div class="m-3">
 			<a href="/Todo/showServlet?id=${task.id }">戻る</a>
 		</div>
@@ -33,7 +33,7 @@
 				<input type="date" name="deadline" id="deadline" class="form-control" value="${task.deadline }">
 			</div>
 			<div class="text-center">
-				<button type="submit" class="btn btn-primary">更新</button>
+				<button type="submit" class="btn btn-primary w-50">更新</button>
 			</div>
 		</form>
 	</div>
