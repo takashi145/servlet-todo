@@ -19,7 +19,9 @@ public class TaskDAO {
 	public List<Task> findAll() {
 		List<Task> taskList = new ArrayList<>();
 		
-		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
 			String sql = "select * "
 					+ "from tasks "
 					+ "where deadline >= curdate() "
@@ -36,7 +38,7 @@ public class TaskDAO {
 				Task task = new Task(id, task_name, explanation, deadline);
 				taskList.add(task);
 			}
-		}catch(SQLException e) {
+		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -47,7 +49,9 @@ public class TaskDAO {
 	public List<Task> expiredFindAll() {
 		List<Task> taskList = new ArrayList<>();
 		
-		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
 			String sql = "select * "
 					+ "from tasks "
 					+ "where deadline < curdate()"
@@ -63,7 +67,7 @@ public class TaskDAO {
 				Task task = new Task(id, task_name, explanation, deadline);
 				taskList.add(task);
 			}
-		}catch(SQLException e) {
+		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -71,7 +75,10 @@ public class TaskDAO {
 	}
 	
 	public boolean create(Task task) {
-		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+			
 			String sql = "insert into tasks(task, explanation, deadline) values(?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -89,7 +96,7 @@ public class TaskDAO {
 			if(result != 1) {
 				return false;
 			}
-		}catch(SQLException e) {
+		}catch(SQLException  | ClassNotFoundException e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -124,7 +131,9 @@ public class TaskDAO {
 	
 	public boolean update(Task task, int id) {
 		
-		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
 			String sql = "update tasks set task=?, explanation=?, deadline=? where id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
@@ -143,7 +152,7 @@ public class TaskDAO {
 			if(result != 1) {
 				return false;
 			}
-		}catch(SQLException e) {
+		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -152,7 +161,9 @@ public class TaskDAO {
 	}
 	
 	public boolean delete(int id) {
-		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
 			String sql = "delete from tasks where id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, id);
@@ -161,7 +172,7 @@ public class TaskDAO {
 			if(result != 1) {
 				return false;
 			}
-		}catch(SQLException e) {
+		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return false;
 		}

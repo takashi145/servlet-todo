@@ -5,31 +5,36 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>タスク追加</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
-	<a href="/Todo/IndexServlet">戻る</a>
-	<ul>
-		<c:forEach var="error" items="${errorList }">
-			<li>${error}</li>
-		</c:forEach>
-	</ul>
-	<form action="/Todo/createServlet" method="post">
-		<div>
-			<label for="task_name">タスク名</label>
-			<input type="text" name="task_name" id="task_name">
+	<div class="container">
+		<div class="m-3">
+			<a href="/Todo/IndexServlet">一覧に戻る</a>
 		</div>
-		<div>
-			<label for="explanation">タスク詳細</label>
-			<textarea name="explanation" id="explanation"></textarea>
-		</div>
-		<div>
-			<label for="deadline">期限</label>
-			<input type="date" name="deadline" id="deadline">
-		</div>
-		<div>
-			<input type="submit" value="送信">
-		</div>
-	</form>
+		<ul class="list-unstyled text-danger text-center">
+			<c:forEach var="error" items="${errorList }">
+				<li>${error}</li>
+			</c:forEach>
+		</ul>
+		<form action="/Todo/createServlet" method="post">
+			<div class="mb-3">
+				<label for="task_name" class="form-label">タスク名</label>
+				<input type="text" name="task_name" id="task_name" class="form-control">
+			</div>
+			<div class="mb-3">
+				<label for="explanation" class="form-label">タスク詳細</label>
+				<textarea name="explanation" id="explanation" class="form-control"></textarea>
+			</div>
+			<div class="mb-5">
+				<label for="deadline" class="form-label">期限</label>
+				<input type="date" name="deadline" id="deadline" class="form-control">
+			</div>
+			<div class="text-center">
+				<button type="submit" class="btn btn-primary w-50">追加</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
