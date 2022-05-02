@@ -22,11 +22,15 @@ public class TaskDAO {
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
-			String sql = "select * "
+			// deadline(期限日)が今日以降のデータを昇順で取得した後、deadlineが空のデータを取得して結合
+			String sql = "(select * "
 					+ "from tasks "
 					+ "where deadline >= curdate() "
-					+ "or deadline is null "
-					+ "order by deadline";
+					+ "order by deadline)"
+					+ "union"
+					+ "(select * "
+					+ "from tasks "
+					+ "where deadline is null)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			ResultSet rs = pStmt.executeQuery();
 			

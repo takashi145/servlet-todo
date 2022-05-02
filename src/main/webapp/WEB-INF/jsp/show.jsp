@@ -36,7 +36,7 @@
 				<p class="border border-2 rounded p-2 mt-2">
 					<c:choose>
 						<c:when test="${empty task.deadline }">
-							無期限
+							期限なし
 						</c:when>
 						<c:otherwise>
 							${task.deadline }

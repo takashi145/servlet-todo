@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="model.Task,java.util.*" %>
 <%
 String type = request.getParameter("type");
+List<Task> taskList = (List<Task>)request.getAttribute("taskList"); 
 %>
 <!DOCTYPE html>
 <html>
@@ -36,26 +37,21 @@ String type = request.getParameter("type");
 				<th>期限</th>
 				<th></th>
 			</tr>
-			<c:forEach var="task" items="${taskList }">
-			<tr class="table table-secondary">
-				<td>
-					<c:out value="${task.task }" />
-				</td>
-				<td>
-					<c:choose>
-						<c:when test="<c:out value='${task.deadline }' /> == null">
-							無期限
-						</c:when>
-						<c:otherwise>
-							<c:out value="${task.deadline }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td>
-					<a href="/Todo/showServlet?id=<c:out value='${task.id }'/>">詳細</a>
-				</td>
-			</tr>
-			</c:forEach>
+			<% for(Task task : taskList) {%>
+				<tr>
+					<td><%=task.getTask() %></td>
+					<td>
+						<% if(task.getDeadline() == null) {%>
+							期限なし
+						<% }else { %>
+							<%=task.getDeadline() %>
+						<% }%>
+					</td>
+					<td>
+						<a href="/Todo/showServlet?id=<%=task.getId() %>">詳細</a>
+					</td>
+				</tr>
+			<% } %>
 		</table>
 		<div class="text-end">
 			<button onclick="location.href='/Todo/createServlet'" class="btn btn-primary">タスク追加</button>
