@@ -9,12 +9,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/jsp/components/header.jsp" />
 	<div class="container col-md-6 m-5 mx-auto">
-		<div class="text-center mt-3">
-			<c:if test="${!empty message}">
-				<p class="bg-success p-2 rounded text-white">${message}</p>
-			</c:if>
-		</div>
+		<jsp:include page="/WEB-INF/jsp/components/flash.jsp" />
 		<div class="mb-3">
 			<a href="/Todo/IndexServlet">戻る</a>
 		</div>

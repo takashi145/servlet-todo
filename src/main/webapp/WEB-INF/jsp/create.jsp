@@ -9,15 +9,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/jsp/components/header.jsp" />
 	<div class="container col-md-6 m-5 mx-auto">
 		<div class="m-3">
 			<a href="/Todo/IndexServlet">一覧に戻る</a>
 		</div>
-		<ul class="list-unstyled text-danger text-center">
-			<c:forEach var="error" items="${errorList }">
-				<li>${error}</li>
-			</c:forEach>
-		</ul>
+		<jsp:include page="/WEB-INF/jsp/components/error.jsp" />
 		<form action="/Todo/CreateServlet" method="post">
 			<div class="mb-3">
 				<label for="task_name" class="form-label">タスク名</label>

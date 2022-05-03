@@ -4,8 +4,6 @@
 <%
 String type = request.getParameter("type");
 List<Task> taskList = (List<Task>)request.getAttribute("taskList");
-String message = (String)session.getAttribute("message");
-String alert = (String)session.getAttribute("alert");
 %>
 <!DOCTYPE html>
 <html>
@@ -15,14 +13,9 @@ String alert = (String)session.getAttribute("alert");
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/jsp/components/header.jsp" />
 	<div class="container col-md-6">
-		<div class="text-center mt-3">
-			<% if(message != null){ %>
-				<p class="bg-success p-2 rounded text-white"><%=message %></p>
-			<% }else if(alert != null){ %>
-				<p class="bg-danger p-2 rounded text-white"><%=alert %></p>
-			<% } %>
-		</div>
+		<jsp:include page="/WEB-INF/jsp/components/flash.jsp" />
 		<div class="mt-4 d-flex justify-content-around">
 			<div>
 				<% if(type == null) { %>
