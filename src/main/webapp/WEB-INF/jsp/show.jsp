@@ -5,11 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>タスク詳細</title>
+<title>Todoリスト</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container col-md-6 m-5 mx-auto">
+		<div class="text-center mt-3">
+			<c:if test="${!empty message}">
+				<p class="bg-success p-2 rounded text-white">${message}</p>
+			</c:if>
+		</div>
 		<div class="mb-3">
 			<a href="/Todo/IndexServlet">戻る</a>
 		</div>
@@ -20,13 +25,13 @@
 			</div>
 			<div class="mb-3">
 				タスク詳細
-				<p class="border border-2 rounded p-2 mt-2">
+				<p class="border border-2 rsounded p-2 mt-2">
 					<c:choose>
 						<c:when test="${empty task.explanation }">
 							---
 						</c:when>
 						<c:otherwise>
-							${task.explanation }
+							${task.explanation.replaceAll("\\r\\n|\\r|\\n", "<br>") }
 						</c:otherwise>
 					</c:choose>
 				</p>

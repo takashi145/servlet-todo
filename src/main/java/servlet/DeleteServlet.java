@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DeleteTaskLogic;
 
@@ -25,6 +26,9 @@ public class DeleteServlet extends HttpServlet {
 			
 		DeleteTaskLogic deleteTaskLogic = new DeleteTaskLogic();
 		deleteTaskLogic.execute(id);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("alert", "タスクを削除しました。");
 			
 		response.sendRedirect("/Todo/IndexServlet");
 	}

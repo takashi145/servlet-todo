@@ -18,11 +18,11 @@ import javax.servlet.http.HttpSession;
 import dao.CreateTaskLogic;
 import model.Task;
 
-@WebServlet("/createServlet")
-public class createServlet extends HttpServlet {
+@WebServlet("/CreateServlet")
+public class CreateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-    public createServlet() {
+    public CreateServlet() {
         super();
     }
     
@@ -71,15 +71,17 @@ public class createServlet extends HttpServlet {
 			}
 		}
 		
+		HttpSession session = request.getSession();
 		if(errorList.size() > 0) {
-			HttpSession session = request.getSession();
 			session.setAttribute("errorList", errorList);
-			response.sendRedirect("/Todo/createServlet");
+			response.sendRedirect("/Todo/CreateServlet");
 		}else {
 			Task task = new Task(task_name, explanation, deadline);
 		
 			CreateTaskLogic createTaskLogic = new CreateTaskLogic();
 			createTaskLogic.execute(task);
+			
+			session.setAttribute("message", "タスクが追加されました。");
 			
 			response.sendRedirect("/Todo/IndexServlet");
 		}

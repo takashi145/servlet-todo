@@ -8,15 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.GetTaskLogic;
 import model.Task;
 
-@WebServlet("/showServlet")
-public class showServlet extends HttpServlet {
+@WebServlet("/ShowServlet")
+public class ShowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-    public showServlet() {
+    public ShowServlet() {
         super();
     }
     
@@ -30,6 +31,9 @@ public class showServlet extends HttpServlet {
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher("/WEB-INF/jsp/show.jsp");
 		dispatcher.forward(request, response);
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("message");
 	}
 
 }

@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>タスク更新</title>
+<title>Todoリスト</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container col-md-6 m-5 mx-auto">
 		<div class="m-3">
-			<a href="/Todo/showServlet?id=${task.id }">戻る</a>
+			<a href="/Todo/ShowServlet?id=${task.id }">戻る</a>
 		</div>
 		<ul class="list-unstyled text-danger text-center">
 			<c:forEach var="error" items="${errorList }">
@@ -26,7 +26,7 @@
 			</div>
 			<div class="mb-3">
 				<label for="explanation" class="form-label">タスク詳細</label>
-				<textarea name="explanation" id="explanation" class="form-control" placeholder="タスクの詳細を200文字以内で入力してください。">${task.explanation }</textarea>
+				<textarea name="explanation" id="explanation" class="form-control" rows="3" wrap="hard" placeholder="タスクの詳細を200文字以内で入力してください。">${task.explanation }</textarea>
 			</div>
 			<div class="mb-5">
 				<label for="deadline" class="form-label">期限</label>

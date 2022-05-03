@@ -41,6 +41,9 @@ public class IndexServlet extends HttpServlet {
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 		dispatcher.forward(request, response);
+		
+		session.removeAttribute("message");
+		session.removeAttribute("alert");
 	}
 	
 }

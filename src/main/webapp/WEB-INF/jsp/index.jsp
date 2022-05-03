@@ -3,17 +3,26 @@
 <%@ page import="model.Task,java.util.*" %>
 <%
 String type = request.getParameter("type");
-List<Task> taskList = (List<Task>)request.getAttribute("taskList"); 
+List<Task> taskList = (List<Task>)request.getAttribute("taskList");
+String message = (String)session.getAttribute("message");
+String alert = (String)session.getAttribute("alert");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>タスク一覧</title>
+<title>Todoリスト</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container col-md-6">
+		<div class="text-center mt-3">
+			<% if(message != null){ %>
+				<p class="bg-success p-2 rounded text-white"><%=message %></p>
+			<% }else if(alert != null){ %>
+				<p class="bg-danger p-2 rounded text-white"><%=alert %></p>
+			<% } %>
+		</div>
 		<div class="mt-4 d-flex justify-content-around">
 			<div>
 				<% if(type == null) { %>
@@ -48,13 +57,13 @@ List<Task> taskList = (List<Task>)request.getAttribute("taskList");
 						<% }%>
 					</td>
 					<td>
-						<a href="/Todo/showServlet?id=<%=task.getId() %>">詳細</a>
+						<a href="/Todo/ShowServlet?id=<%=task.getId() %>">詳細</a>
 					</td>
 				</tr>
 			<% } %>
 		</table>
 		<div class="text-end">
-			<button onclick="location.href='/Todo/createServlet'" class="btn btn-primary">タスク追加</button>
+			<button onclick="location.href='/Todo/CreateServlet'" class="btn btn-primary">タスク追加</button>
 		</div>
 	</div>
 </body>

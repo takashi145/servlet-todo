@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>タスク追加</title>
+<title>Todoリスト</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 </head>
 <body>
@@ -18,14 +18,14 @@
 				<li>${error}</li>
 			</c:forEach>
 		</ul>
-		<form action="/Todo/createServlet" method="post">
+		<form action="/Todo/CreateServlet" method="post">
 			<div class="mb-3">
 				<label for="task_name" class="form-label">タスク名</label>
 				<input type="text" name="task_name" id="task_name" class="form-control" placeholder="タスク名を30文字以内で入力してください。">
 			</div>
 			<div class="mb-3">
 				<label for="explanation" class="form-label">タスク詳細</label>
-				<textarea name="explanation" id="explanation" class="form-control" placeholder="タスクの詳細を200文字以内で入力してください。"></textarea>
+				<textarea name="explanation" id="explanation" class="form-control" wrap="hard" placeholder="タスクの詳細を200文字以内で入力してください。"></textarea>
 			</div>
 			<div class="mb-5">
 				<label for="deadline" class="form-label">期限</label>

@@ -79,8 +79,8 @@ public class UpdateServlet extends HttpServlet {
 			}
 		}
 		
+		HttpSession session = request.getSession();
 		if(errorList.size() > 0) {
-			HttpSession session = request.getSession();
 			session.setAttribute("errorList", errorList);
 			response.sendRedirect("/Todo/UpdateServlet?id=" + id);
 			
@@ -90,7 +90,9 @@ public class UpdateServlet extends HttpServlet {
 			UpdateTaskLogic updateTaskLogic = new UpdateTaskLogic();
 			updateTaskLogic.execute(task, id);
 			
-			response.sendRedirect("/Todo/IndexServlet");
+			session.setAttribute("message", "タスクが更新されました。");
+			
+			response.sendRedirect("/Todo/ShowServlet?id=" + id);
 		}
 		
 	}
