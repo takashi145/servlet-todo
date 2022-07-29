@@ -19,15 +19,23 @@
 			<input type="hidden" name="id" value="${task.id }">
 			<div class="mb-3">
 				<label for="task_name" class="form-label">タスク名</label>
-				<input type="text" name="task_name" id="task_name" class="form-control" value="${task.task }" placeholder="タスク名を30文字以内で入力してください。">
+				<input type="text" name="task_name" id="task_name" class="form-control" value="${task.title }" placeholder="タスク名を30文字以内で入力してください。">
 			</div>
 			<div class="mb-3">
-				<label for="explanation" class="form-label">タスク詳細</label>
-				<textarea name="explanation" id="explanation" class="form-control" rows="3" wrap="hard" placeholder="タスクの詳細を200文字以内で入力してください。">${task.explanation }</textarea>
+				<label for="description" class="form-label">タスク詳細</label>
+				<textarea name="description" id="description" class="form-control" rows="3" wrap="hard" placeholder="タスクの詳細を200文字以内で入力してください。">${task.description}</textarea>
 			</div>
-			<div class="mb-5">
+			<div class="mb-3">
 				<label for="deadline" class="form-label">期限</label>
 				<input type="date" name="deadline" id="deadline" class="form-control" value="${task.deadline }">
+			</div>
+			<div class="mb-5">
+				<label for="status" class="form-label">状態</label>
+				<div class="form-control">
+					<input type="radio" id="status" name="status" value="1" class="mx-3" <c:if test="${task.status }"> checked </c:if> >完了
+					<input type="radio" id="status" name="status" value="0" class="mx-3" <c:if test="${!task.status }"> checked </c:if> >未完了
+				</div>
+				
 			</div>
 			<div class="text-center">
 				<button type="submit" class="btn btn-primary w-50">更新</button>

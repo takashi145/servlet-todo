@@ -18,17 +18,17 @@
 		<div>
 			<div class="mb-3">
 				タスク名
-				<p class="border border-2 rounded p-2 mt-2">${task.task }</p>
+				<p class="border border-2 rounded p-2 mt-2">${task.title }</p>
 			</div>
 			<div class="mb-3">
 				タスク詳細
 				<p class="border border-2 rsounded p-2 mt-2">
 					<c:choose>
-						<c:when test="${empty task.explanation }">
+						<c:when test="${empty task.description }">
 							---
 						</c:when>
 						<c:otherwise>
-							${task.explanation.replaceAll("\\r\\n|\\r|\\n", "<br>") }
+							${task.description.replaceAll("\\r\\n|\\r|\\n", "<br>") }
 						</c:otherwise>
 					</c:choose>
 				</p>

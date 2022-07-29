@@ -1,18 +1,18 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import model.Task;
 
 public class TaskDAO {
-	private final String JDBC_URL = System.getenv("JDBC_URL");
+	private final String JDBC_URL = "jdbc:mysql://localhost:3306/todo_db?characterEncoding=UTF-8";
 	private final String DB_USER = System.getenv("DB_USER");
 	private final String DB_PASS = System.getenv("DB_PASS");
 	
@@ -35,10 +35,11 @@ public class TaskDAO {
 			
 			while(rs.next()) {
 				int id = rs.getInt("id");
-				String task_name = rs.getString("task");
-				String explanation = rs.getString("explanation");
+				String title = rs.getString("title");
+				String description = rs.getString("description");
 				Date deadline = rs.getDate("deadline");
-				Task task = new Task(id, task_name, explanation, deadline);
+				Boolean status = rs.getBoolean("status");
+				Task task = new Task(id, title, description, deadline, status);
 				taskList.add(task);
 			}
 		}catch(SQLException | ClassNotFoundException e) {
@@ -48,7 +49,7 @@ public class TaskDAO {
 		return taskList;
 	}
 	
-	public List<Task> expiredFindAll() {
+	public List<Task> findExpiredTask() {
 		List<Task> taskList = new ArrayList<>();
 		
 		try{
@@ -63,10 +64,11 @@ public class TaskDAO {
 			
 			while(rs.next()) {
 				int id = rs.getInt("id");
-				String task_name = rs.getString("task");
-				String explanation = rs.getString("explanation");
+				String title = rs.getString("title");
+				String description = rs.getString("description");
 				Date deadline = rs.getDate("deadline");
-				Task task = new Task(id, task_name, explanation, deadline);
+				Boolean status = rs.getBoolean("status");
+				Task task = new Task(id, title, description, deadline, status);
 				taskList.add(task);
 			}
 		}catch(SQLException | ClassNotFoundException e) {
@@ -81,18 +83,12 @@ public class TaskDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
 			
-			String sql = "insert into tasks(task, explanation, deadline) values(?, ?, ?)";
+			String sql = "insert into tasks(title, description, deadline) values(?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
-			pStmt.setString(1, task.getTask());
-			pStmt.setString(2, task.getExplanation());
-			java.sql.Date deadline;
-			if(task.getDeadline() == null) {
-				deadline = null;
-			}else {
-				deadline = new java.sql.Date(task.getDeadline().getTime());
-			}
-			pStmt.setDate(3, deadline);
+			pStmt.setString(1, task.getTitle());
+			pStmt.setString(2, task.getDescription());
+			pStmt.setDate(3, task.getDeadline());
 			
 			int result = pStmt.executeUpdate();
 			if(result != 1) {
@@ -109,7 +105,9 @@ public class TaskDAO {
 	public Task findOne(int task_id) {
 		Task task = null;
 		
-		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
 			String sql = "select * from tasks where id = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, task_id);
@@ -117,13 +115,14 @@ public class TaskDAO {
 			
 			if(rs.next()) {
 				int id = rs.getInt("id");
-				String task_name = rs.getString("task");
-				String explanation = rs.getString("explanation");
+				String title = rs.getString("title");
+				String description = rs.getString("description");
 				Date deadline = rs.getDate("deadline");
-				task = new Task(id, task_name, explanation, deadline);
+				Boolean status = rs.getBoolean("status");
+				task = new Task(id, title, description, deadline, status);
 			}
 			
-		}catch(SQLException e) {
+		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -136,11 +135,11 @@ public class TaskDAO {
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
-			String sql = "update tasks set task=?, explanation=?, deadline=? where id=?";
+			String sql = "update tasks set title=?, description=?, deadline=?, status=? where id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
-			pStmt.setString(1, task.getTask());
-			pStmt.setString(2, task.getExplanation());
+			pStmt.setString(1, task.getTitle());
+			pStmt.setString(2, task.getDescription());
 			java.sql.Date deadline;
 			if(task.getDeadline() == null) {
 				deadline = null;
@@ -148,7 +147,8 @@ public class TaskDAO {
 				deadline = new java.sql.Date(task.getDeadline().getTime());
 			}
 			pStmt.setDate(3, deadline);
-			pStmt.setInt(4, id);
+			pStmt.setBoolean(4, task.getStatus());
+			pStmt.setInt(5, id);
 			
 			int result = pStmt.executeUpdate();
 			if(result != 1) {

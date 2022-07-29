@@ -11,7 +11,7 @@ public class GetTaskListLogic {
 		if(type == null) {
 			taskList = dao.findAll();
 		}else if(type.equals("expired")) {
-			taskList = dao.expiredFindAll();
+			taskList = dao.findExpiredTask();
 		}
 		return taskList;
 	}

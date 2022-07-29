@@ -21,8 +21,8 @@
 				<input type="text" name="task_name" id="task_name" class="form-control" placeholder="タスク名を30文字以内で入力してください。">
 			</div>
 			<div class="mb-3">
-				<label for="explanation" class="form-label">タスク詳細</label>
-				<textarea name="explanation" id="explanation" class="form-control" wrap="hard" placeholder="タスクの詳細を200文字以内で入力してください。"></textarea>
+				<label for="description" class="form-label">タスク詳細</label>
+				<textarea name="description" id="description" class="form-control" wrap="hard" placeholder="タスクの詳細を200文字以内で入力してください。"></textarea>
 			</div>
 			<div class="mb-5">
 				<label for="deadline" class="form-label">期限</label>

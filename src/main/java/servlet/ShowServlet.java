@@ -23,7 +23,9 @@ public class ShowServlet extends HttpServlet {
     
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int id = Integer.parseInt(request.getParameter("id"));
+		
 		GetTaskLogic getTaskLogic = new GetTaskLogic();
 		Task task = getTaskLogic.execute(id);
 		request.setAttribute("task", task);

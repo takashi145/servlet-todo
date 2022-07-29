@@ -31,11 +31,7 @@ public class IndexServlet extends HttpServlet {
 		List<Task> taskList = null;
 		String type = request.getParameter("type");
 		
-		if(type == null) {
-			taskList = getTaskListLogic.execute(type);
-		}else if(type.equals("expired")) {
-			taskList = getTaskListLogic.execute(type);
-		}
+		taskList = getTaskListLogic.execute(type);
 		request.setAttribute("taskList", taskList);
 		
 		RequestDispatcher dispatcher = 

@@ -1,44 +1,48 @@
 package model;
 
-import java.util.Date;
-
+import java.sql.Date;
 
 public class Task {
 	private int id;
-	private String task;
-	private String explanation;
+	private String title;
+	private String description;
 	private Date deadline;
+	private Boolean status;
 	
-	public Task(String task, String explanation, Date deadline) {
-		this.task = task;
-		this.explanation = explanation;
+	
+	public Task(String title, String description, Date deadline, Boolean status) {
+		this.title = title;
+		this.description = description;
 		this.deadline = deadline;
+		this.status = status;
 	}
 
-	public Task(int id, String task, String explanation, Date deadline2) {
+	public Task(int id, String title, String description, Date deadline, Boolean status) {
 		this.id = id;
-		this.task = task;
-		this.explanation = explanation;
-		this.deadline = deadline2;
+		this.title = title;
+		this.description = description;
+		this.deadline = deadline;
+		this.status = status;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public String getTask() {
-		return task;
+	public String getTitle() {
+		return title;
 	}
 
-	public String getExplanation() {
-		return explanation;
+	public String getDescription() {
+		return description;
 	}
 
 	public Date getDeadline() {
 		return deadline;
 	}
 	
-	
-	
+	public Boolean getStatus() {
+		return status;
+	}
 	
 }
